@@ -1,3 +1,26 @@
-h1 {
-    color: red;
+#header_section{
+    height: 100vh;
+}
+
+#references_section{
+    height: 100vh;
+    background-color: #a7b8b5;
+    opacity: 0.3;
+}
+
+#services_section{
+    height: 70vh;
+}
+
+#contact_section{
+    height: 100vh;
+    background-color: #a7b8b5;
+    opacity: 0.3;
+}
+
+/* Footer */ 
+
+footer{
+    height: 30vh;
+    background-color: #082d3a;
 }
