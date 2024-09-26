@@ -1,21 +1,66 @@
-#header_section{
-    height: 100vh;
+body {
+    font-family: "Noto Serif Georgian", serif;
 }
 
-#references_section{
+#references_section {
     height: 100vh;
     background-color: #a7b8b5;
     opacity: 0.3;
 }
 
-#services_section{
+#services_section {
     height: 70vh;
 }
 
-#contact_section{
+#contact_section {
     height: 100vh;
     background-color: #a7b8b5;
-    opacity: 0.3;
+    opacity: 0.2;
+}
+
+
+/* title section */
+
+#title_section {
+    text-align: center;
+}
+
+.title_img {
+    width: 55%;
+    margin-bottom: 30px;
+}
+
+/* Header */ 
+
+header {
+    text-align: center;
+}
+
+.brand_logo {
+    width: 230px;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.navbar {
+    padding: 0 10% 0 10%;
+    margin-bottom: 30px;
+}
+
+.navbar-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: solid 2px #267491;
+}
+
+.nav-link {
+    font-weight: 600;
+    color: #267491;
+    font-size: 1.5rem;
 }
 
 /* Footer */ 
@@ -23,4 +68,5 @@
 footer{
     height: 30vh;
     background-color: #082d3a;
+
 }

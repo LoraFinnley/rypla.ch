@@ -22,7 +22,7 @@ var siteTitle = "Template";
 
 //Routen
 app.get("/", (req, res) => {
-    siteTitle = "Template - Home";
+    siteTitle = "Rypla GmbH";
     res.render(__dirname + "/views/index.ejs", {siteTitle: siteTitle});
   });
 
