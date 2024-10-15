@@ -2,32 +2,28 @@ body {
     font-family: "Noto Serif Georgian", serif;
 }
 
-#references_section {
-    height: 100vh;
-    background-color: #a7b8b5;
-    opacity: 0.3;
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 0 10% 0 10%;
+    color: #267491;
 }
 
-#services_section {
-    height: 70vh;
+h4 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #267491;
+    margin: 0;
+    height: 100%;
 }
 
-#contact_section {
-    height: 100vh;
-    background-color: #a7b8b5;
-    opacity: 0.2;
+p {
+    font-family: "Open Sans", sans-serif;
 }
 
-
-/* title section */
-
-#title_section {
-    text-align: center;
-}
-
-.title_img {
-    width: 55%;
-    margin-bottom: 30px;
+.remove_padding {
+    padding: 0;
 }
 
 /* Header */ 
@@ -61,6 +57,56 @@ header {
     font-weight: 600;
     color: #267491;
     font-size: 1.5rem;
+}
+
+#contact_section {
+    height: 100vh;
+    background-color: #a7b8b5;
+    opacity: 0.2;
+}
+
+/* title section */
+
+#title_section {
+    text-align: center;
+}
+
+.title_img {
+    width: 55%;
+    margin-bottom: 60px;
+}
+
+/* references section */
+
+#references_section {
+    height: 100vh;
+    background-color: rgba(167, 184, 181, 0.3);
+    padding-top: 60px;
+}
+
+.experience_card {
+    border: 1px solid #082d3a;
+    width: 450px;
+    height: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.experience_card .row {
+    margin: 0;
+}
+
+.experience_card p {
+    height: 100%;
+    margin: 0;
+}
+
+/* services section */
+
+#services_section {
+    height: 70vh;
 }
 
 /* Footer */ 
