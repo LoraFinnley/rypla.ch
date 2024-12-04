@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from 'path';
+import autoprefixer from 'autoprefixer';
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -10,6 +11,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Setze den View-Engine und das Views-Verzeichnis
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Autoprefixer für Probleme mit Brave Browser
+export default {
+  plugins: [
+    autoprefixer
+  ]
+};
 
 // Verwende Body-Parser Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
