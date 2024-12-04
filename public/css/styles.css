@@ -67,9 +67,10 @@ header {
 }
 
 #contact_section {
-    height: 100vh;
+    height: 70vh;
     background-color: #a7b8b5;
-    opacity: 0.2;
+    opacity: 0.3;
+    
 }
 
 /* title section */
@@ -216,9 +217,21 @@ header {
 
 .edu-4{
     grid-row: 9;
-    
+       
 }
-
+/*
+.background-square {
+    position: fixed;
+    top: 60%;
+    left: 25%;
+    width: 700px;
+    height: 700px;
+    background-color: #cfc5bc4d;
+    transform: translate(-50%, -50%) rotate(45deg);
+    z-index: -1; 
+    pointer-events: none; 
+}
+    */
 
 /* Footer */ 
 
@@ -230,6 +243,8 @@ footer{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 0;
+    position: relative;
 }
 
 footer p, a {
