@@ -3,24 +3,30 @@ body {
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: 500;
-    padding: 0 10% 0 10%;
+    margin: 0 10% 40px 10%;
     color: #267491;
 }
 
 h3 {
     font-family: "Open Sans", sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #267491;
-    margin: 0;
+    color: #082d3a;
     height: 100%;
-    padding: 1px 10% 10px 10%;
+    margin: 1px 10% 10px 10%;
+}
+
+h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #beb4aa;
 }
 
 p {
-    padding: 5px 10% 5px 10%;
+    margin: 15px 10% 15px 10%;
 }
 
 .remove_padding {
@@ -77,13 +83,16 @@ header {
     margin-bottom: 60px;
 }
 
-/* references section */
+/* services section */
 
-#references_section {
+#services_section {
     background-color: rgba(167, 184, 181, 0.3);
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 150px;
+    padding-bottom: 150px;
 }
+/*
+
+--> experience section <---
 
 .experience_card {
     border: 1px solid #082d3a;
@@ -103,12 +112,113 @@ header {
     height: 100%;
     margin: 0;
 }
+*/
 
-/* services section */
+/* about section */
 
-#services_section {
-    height: 70vh;
+#about_section {
+    padding-top: 150px;
+    padding-bottom: 150px;
 }
+
+.about_grid {
+    margin: 15px 10% 15px 10%;
+    display: grid;
+    grid-template-columns: 25% 37.5% 37.5%;
+    grid-auto-rows: auto;
+}
+.item-1 {
+    display: flex;
+    align-items: center;
+}
+
+.about_grid img {
+    border-radius: 50%;
+    border: 1px solid #082d3a;
+    max-width: 180px;
+}
+
+.item-2 {
+    grid-area: 1 / 2 / 2 / 4;
+}
+
+.about_text p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.item-3 {
+    grid-area: 2 / 2 / 3 / 4;
+    justify-self: end;
+    margin-top: 20%;
+}
+
+.history {
+    display: flex;
+}
+
+.work_experience {
+    text-align: right;
+    grid-template-rows: repeat(9, auto);
+}
+
+.work_experience, .education {
+    display: grid;
+    width: 300px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.education {
+    grid-template-rows: auto auto auto auto auto auto auto auto auto;
+}
+
+
+.job {
+    
+}
+
+.when, .where, .what {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.where {
+    font-weight: bold;
+}
+
+.what {
+    color: #267491;
+}
+
+.vertical_line {
+    width: 1px;
+    height: auto;
+    background-color: #082d3a;
+    margin: 30px 10px 0 10px;
+}
+
+.edu-1{
+    grid-row: 3;
+    
+}
+
+.edu-2{
+    grid-row: 5;
+    
+}
+
+.edu-3{
+    grid-row: 8;
+    
+}
+
+.edu-4{
+    grid-row: 9;
+    
+}
+
 
 /* Footer */ 
 
@@ -133,8 +243,7 @@ footer p, a {
 .contact_info {
     display: flex;
     flex-direction: column;
-    max-height: auto; /* Fallback */
-    max-height: fit-content;
+    max-height: auto;
 }
 
 .contact_info a {
@@ -142,7 +251,7 @@ footer p, a {
 }
 
 .contact_info a:hover {
-    color: white;
+    color: #a7b8b5;
 }
 
 .footer_links {
@@ -159,5 +268,5 @@ footer p, a {
 }
 
 .footer_links a:hover {
-    color: white;
+    color: #a7b8b5;
 }
