@@ -235,12 +235,10 @@ footer{
     height: 30vh;
     background-color: #082d3a;
     margin: 0;
-    padding: 0 5% 0 5%;
+    padding: 0 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 0;
-    position: relative;
 }
 
 footer p, a {
@@ -254,11 +252,10 @@ footer p, a {
 .contact_info {
     display: flex;
     flex-direction: column;
-    max-height: auto;
 }
 
 .contact_info a {
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
 }
 
 .contact_info a:hover {
@@ -271,10 +268,10 @@ footer p, a {
     flex-direction: column;
     justify-content: space-between;
     padding: 4% 0 2% 0;
+    text-align: right;
 }
 
 .footer_links a {
-    text-align: right;
     margin: 0;
 }
 
