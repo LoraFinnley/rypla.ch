@@ -133,6 +133,7 @@ footer p, a {
 .contact_info {
     display: flex;
     flex-direction: column;
+    max-height: auto; /* Fallback */
     max-height: fit-content;
 }
 
