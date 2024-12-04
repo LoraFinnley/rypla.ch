@@ -127,12 +127,21 @@ footer p, a {
     font-size: 0.9rem;
     font-weight: 500;
     padding: 0;
+    margin: 0;
 }
 
 .contact_info {
     display: flex;
     flex-direction: column;
     max-height: fit-content;
+}
+
+.contact_info a {
+    margin: 10px 0 10px 0;
+}
+
+.contact_info a:hover {
+    color: white;
 }
 
 .footer_links {
