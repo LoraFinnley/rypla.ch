@@ -14,9 +14,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Autoprefixer für Probleme mit Brave Browser
 export default {
-  plugins: [
-    autoprefixer
-  ]
+  css: {
+    postcss: {
+      plugins: [autoprefixer()],
+    }
+  }
 };
 
 // Verwende Body-Parser Middleware
