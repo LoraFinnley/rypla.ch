@@ -229,15 +229,17 @@ header {
 }
     */
 
-/* Footer */
+
+
+/**** Footer ****/
 
 footer {
     background-color: #082d3a;
-    padding: 20px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     height: 30vh;
+    padding: 20px 5%;
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 50% 50%;
 }
 
 footer p, footer a {
@@ -250,25 +252,26 @@ footer p, footer a {
 
 .contact_info {
     display: flex;
+    gap: 10px;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    grid-area: 1 / 1 / span 2 / 2;
 }
 
-.contact_info a {
-    margin: 10px 0;
-}
 
-.contact_info a:hover {
+footer a:hover {
     color: #a7b8b5; 
 }
 
-.footer_links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 100px;
+.impressum {
+    grid-column: 3;
+    text-align: right;
 }
 
-.footer_links a:hover {
-    color: #a7b8b5;
+.adept {
+    grid-row: 2;
+    grid-column: 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
 }
