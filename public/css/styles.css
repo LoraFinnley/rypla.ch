@@ -22,7 +22,7 @@ h4 {
     margin: 0;
     font-size: 1.2rem;
     font-weight: 800;
-    color: #beb4aa;
+    color: #082d3a;
 }
 
 p {
@@ -67,7 +67,6 @@ header {
 }
 
 #contact_section {
-    height: 70vh;
     background-color: #a7b8b5;
     opacity: 0.3;
     
@@ -117,9 +116,11 @@ header {
 
 /* about section */
 
+/* about section */
+
 #about_section {
     padding-top: 150px;
-    padding-bottom: 150px;
+    position: relative;
 }
 
 .about_grid {
@@ -128,19 +129,19 @@ header {
     grid-template-columns: 25% 37.5% 37.5%;
     grid-auto-rows: auto;
 }
-.item-1 {
+.about_pic {
     display: flex;
     align-items: center;
 }
 
 .about_grid img {
     border-radius: 50%;
+    max-width: 195px;
     border: 1px solid #082d3a;
-    max-width: 180px;
 }
 
-.item-2 {
-    grid-area: 1 / 2 / 2 / 4;
+.about_text {
+  grid-area: 1 / 2 / 2 / 4;
 }
 
 .about_text p {
@@ -149,40 +150,51 @@ header {
     font-weight: 500;
 }
 
-.item-3 {
-    grid-area: 2 / 2 / 3 / 4;
-    justify-self: end;
-    margin-top: 20%;
+/* CV Part */
+
+.cv_grid {
+  display: grid;
+  height: auto;
+  margin: 15px 10% 15px 10%;
+  grid-template-columns: 30% 70%;
+  grid-auto-rows: auto;
 }
 
 .history {
     display: flex;
+    grid-column: 2;
+    margin-top: 30px;
 }
 
 .work_experience {
-    text-align: right;
-    grid-template-rows: repeat(9, auto);
+  text-align: right;
+  grid-template-rows: repeat(9, auto);
+  margin-right: 30px;
 }
 
 .work_experience, .education {
     display: grid;
-    width: 300px;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 10px;
+    height: 1000px;
 }
 
 .education {
-    grid-template-rows: auto auto auto auto auto auto auto auto auto;
+    grid-template-rows: repeat(9, 1fr);
+    margin-left: 30px;
 }
 
-
-.when, .where, .what {
+.when, .where {
     margin: 0;
     line-height: 1.2;
 }
 
+.what {
+  margin: 0;
+}
+
 .where {
-    font-weight: bold;
+    font-weight: 400;
+    text-decoration: underline;
 }
 
 .what {
@@ -191,43 +203,39 @@ header {
 
 .vertical_line {
     width: 1px;
-    height: auto;
+    height: 100%;
     background-color: #082d3a;
-    margin: 30px 10px 0 10px;
+    margin: 30px 40px 0 40px;
 }
 
 .edu-1{
-    grid-row: 3;
-    
+    grid-row: 2;
 }
 
 .edu-2{
     grid-row: 5;
-    
 }
 
 .edu-3{
     grid-row: 8;
-    
 }
 
 .edu-4{
-    grid-row: 9;
-       
+    grid-row: 9;    
 }
-/*
+
 .background-square {
-    position: fixed;
+    position: absolute;
+    left: 30%;
     top: 60%;
-    left: 25%;
     width: 700px;
     height: 700px;
     background-color: #cfc5bc4d;
     transform: translate(-50%, -50%) rotate(45deg);
     z-index: -1; 
     pointer-events: none; 
-}
-    */
+} 
+
 
 
 
@@ -238,8 +246,8 @@ footer {
     height: 30vh;
     padding: 20px 5%;
     display: grid;
-    grid-template-columns: 33.3% 33.3% 33.3%;
-    grid-template-rows: 50% 50%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr;
 }
 
 footer p, footer a {
