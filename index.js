@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import path from 'path';
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -106,7 +107,28 @@ const transporter = nodemailer.createTransport({
   });
 });
 
+// fixes for popup cors error
 
+const allowedOrigins = [
+    "https://rypla-ch.vercel.app",
+    "https://www.rypla.ch",
+    "https://rypla.ch",
+    "http://localhost:3000"
+];
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true); // Erlaube Anfrage ohne Ursprung oder aus erlaubten Ursprüngen
+        } else {
+            callback(new Error("Nicht erlaubter Ursprung")); // Blockiere unzulässige Ursprünge
+        }
+    },
+    methods: "GET,POST",
+    allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions));
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
