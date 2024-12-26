@@ -4,6 +4,9 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from 'path';
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -32,7 +35,6 @@ app.get("/", (req, res) => {
   });
 
 
-  
   app.get("/impressum", (req, res) => {
     siteTitle = "Rypla GmbH - Impressum";
     res.render(__dirname + "/views/impressum.ejs", {siteTitle: siteTitle});
@@ -43,20 +45,66 @@ app.get("/", (req, res) => {
 // 
 
 const transporter = nodemailer.createTransport({
-    host: "imap.mail.hostpoint.ch",
-    port: 993,
-    secure: false, // true for port 465, false for other ports
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: true, 
     auth: {
-      user: "mailer@adept-it.ch",
-      pass: "typnam-monho1-dacsYn",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
+    connectionTimeout: 20000,
   });
 
   // Funktion zum Abfangen der Formulardaten aus dem HTML
 
+  app.post("/send-email", (req, res) => {
+    const formData = {
+      name: req.body.name || req.query.name,
+      email: req.body.email || req.query.email,
+      phone: req.body.phone || req.query.phone,
+      message: req.body.message || req.query.message,
+    };
+  
+    console.log("Empfangene Daten:", formData);
 
+    // formatting the email data
 
+    const mailOptions = {
+        from: `"Rypla Kontaktformular" <mailer@adept-it.ch>`,
+        to: "linda.wyden@gmail.com",
+        subject: `Neue rypla-Nachricht von ${formData.name}`,
+        text: `
+        Sie haben eine neue Nachricht erhalten:
+        
+        Name: ${formData.name}
+        E-Mail: ${formData.email}
+        Telefonnummer: ${formData.phone}
+        Nachricht:
+        ${formData.message}
+        `,
+        html: `
+        <h3>Neue Nachricht vom Kontaktformular</h3>
+        <p><strong>Name:</strong> ${formData.name}</p>
+        <p><strong>E-Mail:</strong> ${formData.email}</p>
+        <p><strong>Telefonnummer:</strong> ${formData.phone}</p>
+        <p><strong>Nachricht:</strong></p>
+        <p>${formData.message}</p>
+        `,
+    };
 
+  // send the email
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Fehler beim Senden der E-Mail:", error);
+      return res.json({ success: false, message: "Die E-Mail konnte nicht gesendet werden." });
+    }
+
+    console.log("E-Mail gesendet:", info.response);
+
+    res.json({ success: true, message: "Die Nachricht wurde gesendet, vielen Dank!" });
+  });
+});
 
 
 

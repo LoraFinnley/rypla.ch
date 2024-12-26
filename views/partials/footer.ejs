@@ -12,6 +12,48 @@
       <p class="adept">webdesign by&nbsp;<a href="www.adept-it.ch">adept it gmbh</a></p>
 </footer>
   <!-- bootstrap -->
+  <script>
+    document.querySelector(".contact_form").addEventListener("submit", function (e) {
+      e.preventDefault(); // Verhindert das Neuladen der Seite
+  
+      const formData = new FormData(this);
+      const jsonData = Object.fromEntries(formData.entries());
+  
+      fetch("/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(jsonData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // Zeige die Erfolgsmeldung an
+            showPopup(data.message);
+  
+            // Leere das Formular
+            this.reset();
+          } else {
+            alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
+          }
+        })
+        .catch((error) => {
+          console.error("Fehler beim Senden der Nachricht:", error);
+        });
+    });
+  
+    function showPopup(message) {
+      const popup = document.createElement("div");
+      popup.className = "popup";
+      popup.innerText = message;
+  
+      document.body.appendChild(popup);
+  
+      setTimeout(() => {
+        popup.classList.add("fade-out");
+        setTimeout(() => popup.remove(), 500);
+      }, 3000);
+    }
+  </script>
     <script src="/js/bootstrap.bundle.min.js"></script>
   </body>
   </html>

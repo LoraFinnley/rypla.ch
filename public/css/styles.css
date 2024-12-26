@@ -303,6 +303,24 @@ header {
     border: 1px solid #082d3a;
   }
 
+  .popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .popup.fade-out {
+    opacity: 0;
+  }
+
 /**** Footer ****/
 
 footer {
