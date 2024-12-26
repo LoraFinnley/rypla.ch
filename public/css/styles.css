@@ -218,16 +218,19 @@ header {
     grid-row: 9;    
 }
 
-.background-square {
+.decoration {
     position: absolute;
+    z-index: -1; 
+    pointer-events: none; 
+}
+
+.square {
     left: 30%;
     top: 60%;
     width: 700px;
     height: 700px;
     background-color: #cfc5bc4d;
     transform: translate(-50%, -50%) rotate(45deg);
-    z-index: -1; 
-    pointer-events: none; 
 } 
 
 /**** Contact Section ****/
@@ -342,4 +345,22 @@ footer a:hover {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+}
+
+/* Impressum */
+
+.impressum_section {
+    padding-top: 50px;
+    padding-bottom: 150px;
+    height: 100vh;
+}
+
+.rhombus {
+  background: #a7b8b5;
+  opacity: 30%;
+  margin: 100px auto;
+  width: 50%;
+  height: 80vh;
+  top: 45%;
+  transform: skewX(-40deg)
 }
