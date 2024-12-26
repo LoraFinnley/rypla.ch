@@ -121,7 +121,7 @@ const corsOptions = {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true); // Erlaube Anfrage ohne Ursprung oder aus erlaubten Ursprüngen
         } else {
-            callback(new Error("Nicht erlaubter Ursprung")); // Blockiere unzulässige Ursprünge
+            callback(new Error("Nicht erlaubter Ursprung")); 
         }
     },
     methods: "GET,POST",
