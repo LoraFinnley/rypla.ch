@@ -31,6 +31,8 @@ app.get("/", (req, res) => {
     res.render(__dirname + "/views/index.ejs", {siteTitle: siteTitle});
   });
 
+
+  
   app.get("/impressum", (req, res) => {
     siteTitle = "Rypla GmbH - Impressum";
     res.render(__dirname + "/views/impressum.ejs", {siteTitle: siteTitle});
