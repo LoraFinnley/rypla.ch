@@ -68,6 +68,15 @@ header {
     font-size: 1.5rem;
 }
 
+/* media queries for header */
+
+@media (max-width: 768px) {
+    
+    nav.navbar.container.navbar-expand-lg > div.container-fluid {
+        justify-content: flex-end;
+    }
+    
+}
 
 /* title section */
 
