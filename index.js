@@ -16,9 +16,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Verwende Body-Parser Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // Statisches Verzeichnis korrekt setzen
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -75,7 +72,7 @@ const transporter = nodemailer.createTransport({
         to: "linda.wyden@gmail.com",
         subject: `Neue rypla-Nachricht von ${formData.name}`,
         text: `
-        Sie haben eine neue Nachricht erhalten:
+        Du hast eine neue Nachricht über www.rypla.ch erhalten:
         
         Name: ${formData.name}
         E-Mail: ${formData.email}
