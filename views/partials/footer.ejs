@@ -12,36 +12,9 @@
       <p class="adept">webdesign by&nbsp;<a href="www.adept-it.ch">adept it gmbh</a></p>
 </footer>
   <!-- bootstrap -->
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  
   <script>
-    document.querySelector(".contact_form").addEventListener("submit", function (e) {
-      e.preventDefault(); // do not reload
-  
-      const formData = new FormData(this);
-      const jsonData = Object.fromEntries(formData.entries());
-  
-      fetch("/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(jsonData),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Antwort vom Server:", data);
-          if (data.success) {
-            // show success message
-            showPopup(data.message);
-  
-            // empty the form
-            this.reset();
-          } else {
-            alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
-          }
-        })
-        .catch((error) => {
-          console.error("Fehler beim Senden der Nachricht:", error);
-        });
-    });
-  
     function showPopup(message) {
       const popup = document.createElement("div");
       popup.className = "popup";
@@ -54,7 +27,37 @@
         setTimeout(() => popup.remove(), 500);
       }, 3000);
     }
+
+    function onSubmit(token) {
+      console.log("function onSubmit triggered, token:", token);
+
+      const form = document.querySelector(".contact_form");
+      const formData = new FormData(form);
+      
+      formData.append("recaptcha-token", token); // Füge das reCAPTCHA-Token hinzu
+
+      const jsonData = Object.fromEntries(formData.entries());
+
+      fetch("/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(jsonData),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Antwort vom Server:", data);
+        if (data.success) {
+          showPopup(data.message); // Zeige Erfolgspopup
+          form.reset(); // Leere das Formular
+        } else {
+          alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
+        }
+      })
+      .catch((error) => {
+        console.error("Fehler beim Senden der Nachricht:", error);
+      });
+    }
+  
   </script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
   </body>
   </html>

@@ -5,12 +5,15 @@ import { fileURLToPath } from "url";
 import path from 'path';
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import cors from "cors";
 
 dotenv.config();
 
+const port = 3000;
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY;
+
+var siteTitle = "Template";
 
 // Setze den View-Engine und das Views-Verzeichnis
 app.set('view engine', 'ejs');
@@ -23,19 +26,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const port = 3000;
-var siteTitle = "Template";
-
 //Routen
 app.get("/", (req, res) => {
     siteTitle = "Rypla GmbH";
-    res.render(__dirname + "/views/index.ejs", {siteTitle: siteTitle});
+    res.render(__dirname + "/views/index.ejs", {
+      siteTitle: siteTitle,
+      recaptchaSiteKey: RECAPTCHA_SITE_KEY
+    });
   });
-
 
   app.get("/impressum", (req, res) => {
     siteTitle = "Rypla GmbH - Impressum";
-    res.render(__dirname + "/views/impressum.ejs", {siteTitle: siteTitle});
+    res.render(__dirname + "/views/impressum.ejs", {
+      siteTitle: siteTitle
+    });
 });
 
 //
@@ -56,6 +60,7 @@ const transporter = nodemailer.createTransport({
   // Funktion zum Abfangen der Formulardaten aus dem HTML
 
   app.post("/send-email", (req, res) => {
+    
     const formData = {
       name: req.body.name || req.query.name,
       email: req.body.email || req.query.email,
@@ -90,17 +95,17 @@ const transporter = nodemailer.createTransport({
         `,
     };
 
-  // send the email
+    // send the email
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Fehler beim Senden der E-Mail:", error);
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Fehler beim Senden der E-Mail:", error);
       return res.json({ success: false, message: "Die E-Mail konnte nicht gesendet werden." });
-    }
+      }
 
-    console.log("E-Mail gesendet:", info.response);
+      console.log("E-Mail gesendet:", info.response);
 
-    res.json({ success: true, message: "Die Nachricht wurde gesendet, vielen Dank!" });
+      res.json({ success: true, message: "Die Nachricht wurde gesendet, vielen Dank!" });
   });
 });
 
@@ -112,20 +117,6 @@ const allowedOrigins = [
     "https://rypla.ch",
     "http://localhost:3000"
 ];
-
-const corsOptions = {
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true); // Erlaube Anfrage ohne Ursprung oder aus erlaubten Ursprüngen
-        } else {
-            callback(new Error("Nicht erlaubter Ursprung")); 
-        }
-    },
-    methods: "GET,POST",
-    allowedHeaders: ["Content-Type"],
-};
-
-app.use(cors(corsOptions));
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

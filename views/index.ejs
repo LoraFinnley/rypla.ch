@@ -9,8 +9,8 @@
 </div>
 
 <div id="services_section">
-  <div class="container remove_padding">
-    <h2>angebot - test feature</h2>
+  <div class="container">
+    <h2>angebot</h2>
 
     <h3>Planung’s, Projekt- und Bauleitungsaufgaben in allen SIA Phasen.</h3>
     <p>
@@ -31,47 +31,12 @@
       folglich nicht. Gerne helfen wir Ihnen Ihre Bedürfnisse zu formulieren und
       diese dann Fachgerecht umzusetzen.
     </p>
-
-    <!-- code fragment for experience cards-->
-    <!-- container 1    -->
-    <!-- <div class="container experience_card left remove_padding">
-
-      <div class="row">
-        <div class="col col-sm-4 remove_padding"><h4>Objekt</h4></div>
-        <div class="col"><p>Schulhausbau</p></div>
-      </div>
-
-        <div class="row">
-            <div class="col col-sm-4 remove_padding"><h4>Funktion</h4></div>
-            <div class="col"><p>Projekt- und Bauleitung</p></div>
-        </div>
-
-        <div class="row">
-          <div class="col col-sm-4 remove_padding"><h4>Tätigkeiten</h4></div>
-          <div class="col">
-            <p>
-                Baueingabe, Ausführungs- & Detailplanung, Koordination der Planer,
-              Austausch mit Behörden und Bauherrn
-            </p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col col-sm-4 remove_padding"><h4>Bausumme</h4></div>
-          <div class="col">
-            <p>
-                ca. 6 Mio.
-            </p>
-            </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>
 
 
 <div id="about_section">
-  <div class="container remove_padding">
+  <div class="container">
     <h2>über rypla</h2>
 
     <div class="about_grid">
@@ -95,8 +60,8 @@
       </div>
       </div>
       
+      <!-- CV -->
       <div class="cv_grid">
-        
         <div class="history">
           <div class="work_experience">
             <h4>werdegang</h4>
@@ -149,9 +114,6 @@
               <p class="what">XXX</p>
             </div>
           </div>
-
-          
-
           <div class="education">
             <h4>ausbildungen</h4>
             <div class="edu edu-1">
@@ -182,30 +144,35 @@
 </div>
 
 <div id="contact_section">
-  <div class="container remove_padding">
-  <h2>kontakt</h2>
-  <div class="contact_container">
-    <form class="contact_form" action="/send-email" method="POST">
-      <label for="name">name, vorname</label>
-      <input type="text" id="name" name="name" placeholder="name" required />
+  <div class="container">
+    <h2>kontakt</h2>
+    <div class="contact_container">
+      <form class="contact_form" action="/send-email" method="POST">
+        <label for="name">name, vorname</label>
+        <input type="text" id="name" name="name" placeholder="name" required />
 
-      <label for="email">e-mail adresse</label>
-      <input type="email" id="email" name="email" placeholder="e-mail" required />
+        <label for="email">e-mail adresse</label>
+        <input type="email" id="email" name="email" placeholder="e-mail" required />
 
-      <label for="phone">telefonnummer</label>
-      <input type="tel" id="phone" name="phone" placeholder="telefonnummer" />
+        <label for="phone">telefonnummer</label>
+        <input type="tel" id="phone" name="phone" placeholder="telefonnummer" />
 
-      <label for="message">nachricht</label>
-      <textarea id="message" name="message" placeholder="ihre nachricht" rows="4" required></textarea>
+        <label for="message">nachricht</label>
+        <textarea id="message" name="message" placeholder="ihre nachricht" rows="4" required></textarea>
 
-      <button type="submit">senden</button>
-    </form>
-    <div class="contact_image">
-      <img src="https://picsum.photos/400/400" alt="Kontakt Bild" />
+        <button 
+          class="g-recaptcha" 
+          data-sitekey="<%= locals.recaptchaSiteKey %>" 
+          data-callback='onSubmit' 
+          data-action='submit'
+          type="button">
+          senden
+        </button>
+      </form>
+      <div class="contact_image">
+        <img src="https://picsum.photos/400/400" alt="Kontakt Bild" />
+      </div>
     </div>
   </div>
 </div>
-
-</div>
-
 <%- include('partials/footer.ejs') %>
