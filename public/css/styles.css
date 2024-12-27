@@ -11,7 +11,7 @@ body {
 h2 {
     font-size: 2.5rem;
     font-weight: 500;
-    margin: 0 10% 40px 10%;
+    margin-bottom: 40px;
     color: var(--primary-color);
 }
 
@@ -21,7 +21,7 @@ h3 {
     font-weight: 600;
     color: var(--secondary-color);
     height: 100%;
-    margin: 1px 10% 10px 10%;
+    margin-bottom: 20px;
 }
 
 h4 {
@@ -32,13 +32,26 @@ h4 {
 }
 
 p {
-    margin: 15px 10% 15px 10%;
+    margin-bottom: 15px;
+}
+
+.ryplaContainer {
+    max-width: 1100px;
+    padding: 0;
+}
+
+.section {
+    padding: 150px 0 150px 0;
 }
 
 /* Header */ 
 
 header {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 30px 0;
 }
 
 .brand_logo {
@@ -47,11 +60,6 @@ header {
 
 .container-fluid {
     padding: 0;
-}
-
-.navbar {
-    padding: 0 10% 0 10%;
-    margin-bottom: 30px;
 }
 
 .navbar-nav {
@@ -70,58 +78,37 @@ header {
 
 /* media queries for header */
 
-@media (max-width: 768px) {
-    
+@media (max-width: 768px) { 
+
+    header {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
     nav.navbar.container.navbar-expand-lg > div.container-fluid {
         justify-content: flex-end;
+        margin-top: 30px;
+        padding: 0;
     }
-    
+
 }
 
 /* title section */
 
 #title_section {
     text-align: center;
+    padding: 0 0 30px 0;
 }
 
 .title_img {
-    width: 55%;
-    margin-bottom: 60px;
+    width: 80%;
 }
 
 /* services section */
 
 #services_section {
     background-color: var(--background-light);
-    padding-top: 150px;
-    padding-bottom: 150px;
 }
-/*
-
---> experience section <---
-
-.experience_card {
-    border: 1px solid var(--secondary-color);
-    width: 450px;
-    height: 300px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-.experience_card .row {
-    margin: 0;
-}
-
-.experience_card p {
-    height: 100%;
-    margin: 0;
-}
-*/
-
-/* about section */
-
 
 #about_section {
     padding-top: 150px;
@@ -129,11 +116,15 @@ header {
 }
 
 .about_grid {
-    margin: 15px 10% 15px 10%;
     display: grid;
     grid-template-columns: 25% 37.5% 37.5%;
     grid-auto-rows: auto;
 }
+
+.about_grid p {
+    height: 100%;
+}
+
 .about_pic {
     display: flex;
     align-items: center;
@@ -160,7 +151,6 @@ header {
 .cv_grid {
   display: grid;
   height: auto;
-  margin: 15px 10% 15px 10%;
   grid-template-columns: 30% 70%;
   grid-auto-rows: auto;
 }
@@ -253,7 +243,6 @@ header {
   }
   
   .contact_container {
-    margin: 15px 10% 15px 10%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -282,9 +271,6 @@ header {
   font-size: 1rem;
 }
 
-.contact_form textarea {
-    resize: none;
-  }
   
   .contact_form button {
     width: 150px;
