@@ -492,19 +492,25 @@ footer a:hover {
 
 /* Impressum */
 
+#impressum_section {
+    overflow: hidden;
+    position: relative;
+    padding-top: 70px;
+}
+
 .rhombus {
   background: #a7b8b5;
   opacity: 30%;
   margin: 100px auto;
   width: 50%;
   height: 110%;
-  top: 45%;
+  top: 2%;
   transform: skewX(-40deg)
 }
 
 @media (max-width: 768px) { 
     .rhombus {
         width: 100%;
-        overflow: hidden;
     }
+
 }
