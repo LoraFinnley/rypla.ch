@@ -124,11 +124,13 @@ header .ryplaContainer{
 
     .navbar-nav {
         flex-direction: column;
+        border-bottom: none;
     }
 
     .nav-link {
         text-align: right;
         border-bottom: solid 1px var(--primary-color);
+        margin-right: 20px;
     }
 }
 
@@ -503,5 +505,6 @@ footer a:hover {
 @media (max-width: 768px) { 
     .rhombus {
         width: 100%;
+        overflow: hidden;
     }
 }
