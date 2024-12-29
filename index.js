@@ -74,7 +74,7 @@ const transporter = nodemailer.createTransport({
 
     const mailOptions = {
         from: `"Rypla Kontaktformular" <mailer@adept-it.ch>`,
-        to: "linda.wyden@gmail.com",
+        to: process.env.EMAIL_RECIPIENT,
         subject: `Neue rypla-Nachricht von ${formData.name}`,
         text: `
         Du hast eine neue Nachricht über www.rypla.ch erhalten:
