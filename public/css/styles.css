@@ -47,21 +47,24 @@ p {
     padding: 0;
 }
 
-@media (max-width: 768px) { 
-    .ryplaContainer {
-        width: 100%;
-        padding: 0 20px 0 20px;
-    }
-}
-
 .section {
     padding: 150px 0 150px 0;
 }
 
 @media (max-width: 768px) { 
+    .ryplaContainer {
+        width: 100%;
+        padding: 0 25px 0 25px;
+    }
+
     .section {
         padding: 100px 0 100px 0;
-        text-align: center;
+        hyphens: auto;
+        text-align: justify;
+    }
+
+    h3 {
+        text-align: left;
     }
 }
 
@@ -469,23 +472,36 @@ footer a:hover {
 @media (max-width: 768px) {
     footer {
         display: block;
+        height: 35vh;
+    }
+
+    .impressum {
+        display: block;
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .adept {
+        display: block;
+        text-align: center;
+        margin: 20px 0 10px 0;
     }
 }
 
 /* Impressum */
-
-.impressum_section {
-    padding-top: 50px;
-    padding-bottom: 150px;
-    height: 100vh;
-}
 
 .rhombus {
   background: #a7b8b5;
   opacity: 30%;
   margin: 100px auto;
   width: 50%;
-  height: 80vh;
+  height: 110%;
   top: 45%;
   transform: skewX(-40deg)
+}
+
+@media (max-width: 768px) { 
+    .rhombus {
+        width: 100%;
+    }
 }
