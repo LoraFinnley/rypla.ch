@@ -91,7 +91,7 @@ const transporter = nodemailer.createTransport({
         <p><strong>E-Mail:</strong> ${formData.email}</p>
         <p><strong>Telefonnummer:</strong> ${formData.phone}</p>
         <p><strong>Nachricht:</strong></p>
-        <p>${formData.message}</p>
+        <p>${formData.message.replace(/\n/g, '<br>')}</p>
         `,
     };
 
