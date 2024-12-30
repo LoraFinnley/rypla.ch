@@ -115,7 +115,8 @@ const allowedOrigins = [
     "https://rypla-ch.vercel.app",
     "https://www.rypla.ch",
     "https://rypla.ch",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://cdn.jsdelivr.net"
 ];
 
 app.listen(port, () => {
