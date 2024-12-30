@@ -5,6 +5,8 @@ import 'https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookiecon
 
 CookieConsent.run({
 
+    revision: 2,
+
     guiOptions: {
         consentModal: {
             layout: 'box inline',
@@ -80,6 +82,24 @@ CookieConsent.run({
             console.log("2. Has been activated!");
             loadAnalyticsScript();
         }
+    },
+
+    onChange: function({changedCategories, changedServices}){
+        console.log("onChange has been fired.");
+        
+        if(changedCategories.includes('analytics')){
+
+            if(CookieConsent.acceptedCategory('analytics')){
+                console.log("Change: Analytics has been activated!");
+                loadAnalyticsScript();
+            }else{
+                console.log("Change: Analytics has been desabled!");
+                disableAnalytics();
+            }
+        }
+        else {
+            console.log("nichts geändert");
+        }
     }
 });
 
@@ -99,4 +119,42 @@ function loadAnalyticsScript() {
         gtag('config', 'G-7RETH2601P');
     };
     document.head.appendChild(script);
+}
+
+function openCookieSettings() {
+    if (typeof CookieConsent !== 'undefined') {
+        CookieConsent.showPreferences();
+        console.log('Cookie-Einstellungen geöffnet.');
+    } else {
+        console.error('CookieConsent ist nicht geladen.');
+    }
+}
+
+window.openCookieSettings = openCookieSettings;
+
+function disableAnalytics() {
+    console.log('Deaktivieren von Google Analytics...');
+
+    // 1. Lösche Google Analytics Cookies
+    document.cookie = "_ga=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "_gid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "_gat=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    console.log('Google Analytics Cookies wurden gelöscht.');
+
+    // 2. Überschreibe die gtag-Funktion, um weitere Tracking-Aufrufe zu blockieren
+    if (typeof window.gtag === "function") {
+        window.gtag = function () {
+            console.log('Google Analytics ist deaktiviert. Keine Daten werden gesendet.');
+        };
+    }
+
+    // 3. Optionale Sicherheitsmaßnahme: Entferne das Analytics-Skript aus dem DOM
+    const gaScript = document.querySelector('script[src*="googletagmanager.com/gtag/js"]');
+    if (gaScript) {
+        gaScript.remove();
+        console.log('Google Analytics-Skript wurde aus dem DOM entfernt.');
+    }
+
+    console.log('Google Analytics wurde erfolgreich deaktiviert.');
 }
