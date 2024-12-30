@@ -68,7 +68,7 @@ CookieConsent.run({
                         },
                         {
                             title: 'Google Analytics',
-                            description: 'Diese Cookies sammeln Informationen darüber, wie Sie die Seite verwenden. Diese Daten sind anonymisiert und können nicht verwendet werden, um Sie zu identifizieren. Gemäss DSG brauchen wir Ihre Zustimmung, um diese Cookies zu verwenden zu können.',
+                            description: 'Analyse-Cookies werden verwendet um zu verstehen, wie Besucher mit der Website interagieren. Diese Cookies dienen zu Aussagen über die Anzahl der Besucher, Absprungrate, Herkunft der Besucher usw.',
                             linkedCategory: 'analytics'
                         }
                     ]
