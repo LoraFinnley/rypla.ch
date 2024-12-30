@@ -5,7 +5,7 @@ import 'https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookiecon
 
 CookieConsent.run({
 
-    revision: 2,
+    revision: 3,
 
     guiOptions: {
         consentModal: {
