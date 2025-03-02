@@ -409,6 +409,8 @@ header .ryplaContainer{
     }
   }
 
+  /**** eMail form pupup ****/
+
   .popup {
     position: fixed;
     top: 20px;
