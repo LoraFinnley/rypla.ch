@@ -119,7 +119,7 @@
 
 
 <div id="contact_section" class="section">
-  <div class="container ryplaContainer">
+  <div class="container">
 
     <h2>kontakt</h2>
     <div class="contact_container">
@@ -135,15 +135,15 @@
 
         <label for="message">nachricht</label>
         <textarea id="message" name="message" placeholder="ihre nachricht" rows="4" required></textarea>
+        
+        <div 
+          class="g-recaptcha"
+          data-sitekey="<%= recaptchaSiteKey %>"
+          data-callback="recaptchaCallback">
+        </div>
 
-        <button 
-          class="g-recaptcha" 
-          data-sitekey="<%= locals.recaptchaSiteKey %>" 
-          data-callback='onSubmit' 
-          data-action='submit'
-          type="button">
-          senden
-        </button>
+        <input type="submit" value="senden">
+
       </form>
       <div class="contact_image">
         <img src="https://picsum.photos/400/400" alt="Kontakt Bild" />

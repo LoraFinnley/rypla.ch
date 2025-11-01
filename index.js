@@ -4,16 +4,19 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from 'path';
 import nodemailer from "nodemailer";
+import cors from "cors";
 import dotenv from "dotenv";
+import multer from "multer";
 
 dotenv.config();
+
+var siteTitle = "rypla";
 
 const port = 3000;
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY;
-
-var siteTitle = "Template";
+const upload = multer();
 
 // Setze den View-Engine und das Views-Verzeichnis
 app.set('view engine', 'ejs');
@@ -25,6 +28,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Middleware zum Verarbeiten von JSON-Daten
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// CORS‑Header **vor** den Routen setzen
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://cdn.jsdelivr.net",
+  "https://rypla.ch",       
+  "https://www.rypla.ch",  
+  "https://rypla.vercel.app"
+];
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      console.log("🔍 Antrag kommt von Origin:", origin);
+      if (!origin || allowedOrigins.includes(origin)) cb(null, true);
+      else cb(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 
 //Routen
 app.get("/", (req, res) => {
@@ -46,78 +68,113 @@ app.get("/", (req, res) => {
 //  Kontaktformular 
 // 
 
-const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: true, 
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-    connectionTimeout: 20000,
+app.post("/send-email", upload.none(), async (req, res) => {
+  // Fehlerbehandlung global
+  app.use((err, req, res, next) => {
+    console.error("❗ Unerwarteter Fehler:", err);
+    res.status(500).json({ success: false, message: "Interner Serverfehler." });
   });
 
-  // Funktion zum Abfangen der Formulardaten aus dem HTML
+  try {
+    // reCAPTCHA Token prüfen
+    const token = Array.isArray(req.body["g-recaptcha-response"])
+      ? req.body["g-recaptcha-response"][0]
+      : req.body["g-recaptcha-response"];
 
-  app.post("/send-email", (req, res) => {
-    
+    if (!token) {
+      return res.status(400).json({
+        success: false,
+        message: "reCAPTCHA‑Token fehlt – bitte das Formular erneut ausfüllen."
+      });
+    }
+
+    console.log("🔐 Token:", token);
+    console.log("📥 Formulardaten:", req.body);
+
+    await verifyRecaptchaV2(token); // Verifikation
+
+    // Formulardaten auslesen
     const formData = {
-      name: req.body.name || req.query.name,
-      email: req.body.email || req.query.email,
-      phone: req.body.phone || req.query.phone,
-      message: req.body.message || req.query.message,
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      message: req.body.message,
     };
-  
-    console.log("Empfangene Daten:", formData);
 
-    // formatting the email data
-
+    // E-Mail konfigurieren
     const mailOptions = {
-        from: `"Rypla Kontaktformular" <mailer@adept-it.ch>`,
-        to: process.env.EMAIL_RECIPIENT,
-        subject: `Neue rypla-Nachricht von ${formData.name}`,
-        text: `
-        Du hast eine neue Nachricht über www.rypla.ch erhalten:
-        
-        Name: ${formData.name}
-        E-Mail: ${formData.email}
-        Telefonnummer: ${formData.phone}
-        Nachricht:
-        ${formData.message}
-        `,
-        html: `
+      from: `"Rypla Kontaktformular" <mailer@adept-it.ch>`,
+      to: process.env.EMAIL_RECIPIENT,
+      subject: `Neue rypla-Nachricht von ${formData.name}`,
+      text: `
+Du hast eine neue Nachricht über www.rypla.ch erhalten:
+
+Name: ${formData.name}
+E-Mail: ${formData.email}
+Telefonnummer: ${formData.phone}
+
+Nachricht:
+${formData.message}
+      `,
+      html: `
         <h3>Neue Nachricht vom Kontaktformular</h3>
         <p><strong>Name:</strong> ${formData.name}</p>
-        <p><strong>E-Mail:</strong> ${formData.email}</p>
-        <p><strong>Telefonnummer:</strong> ${formData.phone}</p>
+        <p><strong>E‑Mail:</strong> ${formData.email}</p>
+        <p><strong>Telefon:</strong> ${formData.phone}</p>
         <p><strong>Nachricht:</strong></p>
-        <p>${formData.message.replace(/\n/g, '<br>')}</p>
-        `,
+        <p>${formData.message.replace(/\n/g, "<br>")}</p>
+      `
     };
 
-    // send the email
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      secure: true,
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+      connectionTimeout: 20000,
+    });
 
+    // E-Mail senden
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error("Fehler beim Senden der E-Mail:", error);
-      return res.json({ success: false, message: "Die E-Mail konnte nicht gesendet werden." });
+        console.error("❌ Fehler beim Senden der E‑Mail:", error);
+        return res.json({
+          success: false,
+          message: "Die E‑Mail konnte nicht gesendet werden."
+        });
       }
 
-      console.log("E-Mail gesendet:", info.response);
-
+      console.log("📤 E‑Mail gesendet:", info.response);
       res.json({ success: true, message: "Die Nachricht wurde gesendet, vielen Dank!" });
-  });
+    });
+
+  } catch (err) {
+    console.error("❗ Fehler bei reCAPTCHA:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
-// fixes for popup cors error
 
-const allowedOrigins = [
-    "https://rypla-ch.vercel.app",
-    "https://www.rypla.ch",
-    "https://rypla.ch",
-    "http://localhost:3000",
-    "https://cdn.jsdelivr.net"
-];
+// Verifikation für reCAPTCHA v2
+async function verifyRecaptchaV2(token) {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  const url = "https://www.google.com/recaptcha/api/siteverify";
+
+  const params = new URLSearchParams({ secret, response: token });
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params.toString(),
+  });
+
+  const data = await response.json();
+  if (!data.success) {
+    throw new Error(`reCAPTCHA-Prüfung fehlgeschlagen: ${data["error-codes"]?.join(", ")}`);
+  }
+
+  return data;
+}
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

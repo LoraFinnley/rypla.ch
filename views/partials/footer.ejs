@@ -17,8 +17,11 @@
 </footer>
   <!-- bootstrap -->
   <script src="/js/bootstrap.bundle.min.js"></script>
+  <!-- cookie consent  -->
+  <script type="module" src="/js/cookieconsent-config.js"></script>
   <!--  eMail form  -->
   <script>
+    // Popup fuction
     function showPopup(message) {
       const popup = document.createElement("div");
       popup.className = "popup";
@@ -31,38 +34,57 @@
         setTimeout(() => popup.remove(), 500);
       }, 3000);
     }
-    
-    function onSubmit(token) {
-      console.log("function onSubmit triggered, token:", token);
-
-      const form = document.querySelector(".contact_form");
-      const formData = new FormData(form);
-      
-      formData.append("recaptcha-token", token); // Füge das reCAPTCHA-Token hinzu
-
-      const jsonData = Object.fromEntries(formData.entries());
-
-      fetch("/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(jsonData),
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Antwort vom Server:", data);
-        if (data.success) {
-          showPopup(data.message); // Zeige Erfolgspopup
-          form.reset(); // Leere das Formular
-        } else {
-          alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
-        }
-      })
-      .catch((error) => {
-        console.error("Fehler beim Senden der Nachricht:", error);
-      });
-    }
   </script>
-  <!-- cookie consent  -->
-  <script type="module" src="/js/cookieconsent-config.js"></script>
+  <script>
+  function recaptchaCallback() {
+    console.log("✅ reCAPTCHA bestätigt");
+  }
+</script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".contact_form");
+    console.log("📦 Kontaktformular gefunden:", form);
+
+    if (!form) {
+      console.error("❌ Formular nicht gefunden");
+      return;
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const token = grecaptcha.getResponse();
+      console.log("📨 Sende Formular mit Token:", token);
+
+      if (!token) {
+        showPopup("Bitte reCAPTCHA bestätigen.");
+        return;
+      }
+
+      const formData = new FormData(form);
+      formData.append("g-recaptcha-response", token);
+
+      try {
+        const response = await fetch("/send-email", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+        console.log("✅ Serverantwort:", result);
+        showPopup(result.message || "Nachricht gesendet.");
+
+        if (result.success) {
+          form.reset();
+          grecaptcha.reset();
+        }
+
+      } catch (err) {
+        console.error("❌ Fehler beim Senden:", err);
+        showPopup("Fehler beim Senden der Nachricht.");
+      }
+    });
+  });
+</script>
   </body>
   </html>
